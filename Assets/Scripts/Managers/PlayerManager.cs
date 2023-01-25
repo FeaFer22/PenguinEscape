@@ -6,28 +6,30 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     // Animator animator;
-    PlayerInputManager playerInputManager;
-    PlayerMovementController playerMovementHandler;
+    PlayerInputManager inputManager;
+    PlayerMovementController movementController;
     // CameraManager cameraManager;
+    PlayerSoundController soundController;
 
-    public bool isInteracting;
+    // public bool isInteracting;
 
     private void Awake()
     {
         // animator = GetComponent<Animator>();
-        playerInputManager = GetComponent<PlayerInputManager>();
+        inputManager = GetComponent<PlayerInputManager>();
         // cameraManager = FindObjectOfType<CameraManager>();
-        playerMovementHandler = GetComponent<PlayerMovementController>();
+        movementController = GetComponent<PlayerMovementController>();
+        soundController = GetComponent<PlayerSoundController>();
     }
 
     private void Update()
     {
-        playerInputManager.HandleAllInputs();
+        inputManager.HandleAllInputs();
     }
 
     private void FixedUpdate()
     {
-        playerMovementHandler.HandleAllMovement();
+        movementController.HandleAllMovement();
     }
 
     private void LateUpdate()

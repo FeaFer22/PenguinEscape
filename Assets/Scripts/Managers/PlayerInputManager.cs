@@ -6,8 +6,9 @@ using UnityEngine.Rendering;
 public class PlayerInputManager : MonoBehaviour
 {
     PlayerInput playerInput;
-    PlayerMovementController playerMovementController;
+    PlayerMovementController movementController;
     //PlayerAnimationManager playerAnimationManager;
+    PlayerSoundController soundController;
 
 
     public Vector2 movementInput;
@@ -23,10 +24,13 @@ public class PlayerInputManager : MonoBehaviour
     public bool sprint_input;
     // public bool jump_input;
 
+    public bool quack_input;
+
     private void Awake()
     {
         // playerAnimationManager = GetComponent<PlayerAnimationManager>();
-        playerMovementController = GetComponent<PlayerMovementController>();
+        movementController = GetComponent<PlayerMovementController>();
+        soundController = GetComponent<PlayerSoundController>();
     }
 
     private void OnEnable()
@@ -41,6 +45,8 @@ public class PlayerInputManager : MonoBehaviour
             playerInput.PlayerActions.Sprint.canceled += i => sprint_input = false;
 
             // playerInput.PlayerActions.Jump.performed += i => jump_input = true;
+
+            playerInput.PlayerActions.Quack.performed += i => quack_input = true;
         }
 
         playerInput.Enable();
@@ -56,6 +62,7 @@ public class PlayerInputManager : MonoBehaviour
         HandleMovementInput();
         HandleSprintingInput();
         // HandleJumpingInput();
+        HandleQuackingInput();
     }
 
     private void HandleMovementInput()
@@ -74,11 +81,11 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (sprint_input /*&& moveAmount > 0.5f*/)
         {
-            playerMovementController.isSprinting = true;
+            movementController.isSprinting = true;
         }
         else
         {
-            playerMovementController.isSprinting = false;
+            movementController.isSprinting = false;
         }
     }
 
@@ -90,4 +97,12 @@ public class PlayerInputManager : MonoBehaviour
     //         playerMovementController.HandleJumping();
     //     }
     // }
+    private void HandleQuackingInput()
+    {
+        if (quack_input)
+        {
+            quack_input = false;
+            soundController.PenguinQuack();
+        }
+    }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     PlayerManager playerManager;
-    PlayerInputManager playerInputManager;
+    PlayerInputManager inputManager;
     // PlayerAnimationManager animationManager;
 
     Vector3 moveDirection;
@@ -35,7 +35,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         playerManager = GetComponent<PlayerManager>();
         //animationManager = GetComponent<PlayerAnimationManager>();
-        playerInputManager = GetComponent<PlayerInputManager>();  
+        inputManager = GetComponent<PlayerInputManager>();  
         playerRigidbody = GetComponent<Rigidbody>();
         //cameraObject = Camera.main.transform;
     }
@@ -48,13 +48,13 @@ public class PlayerMovementController : MonoBehaviour
         //     return;
 
         HandleMovement();
-        // HandleRotation();
+        HandleRotation();
     }
 
     private void HandleMovement()
     {
-        moveDirection = /*cameraObject.forward*/ transform.forward * playerInputManager.verticalInput;
-        moveDirection = moveDirection + /*cameraObject.right*/ transform.right * playerInputManager.horizontalInput;
+        moveDirection = /*cameraObject.forward*/ transform.forward * inputManager.verticalInput;
+        moveDirection = moveDirection + /*cameraObject.right*/ transform.right * inputManager.horizontalInput;
         moveDirection = Quaternion.Euler(0,45f,0) * moveDirection;
         moveDirection.Normalize();
         moveDirection.y = 0;
@@ -89,15 +89,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void HandleRotation()
     {
-        Vector3 targetDirection;
-
-        targetDirection = transform.forward * playerInputManager.verticalInput;
-        targetDirection = targetDirection + transform.right * playerInputManager.horizontalInput;
-        targetDirection.Normalize();
-
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
-
-        transform.rotation = targetRotation;
+        
         // Vector3 targetDirection = Vector3.zero;
 
         // targetDirection = /*cameraObject.forward*/ transform.forward * playerInputManager.verticalInput;
