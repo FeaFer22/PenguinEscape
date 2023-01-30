@@ -8,7 +8,7 @@ public class PlayerSoundController : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
     }
-    public void PenguinQuack()
+    public void Quack()
     {
         AudioClip clip = _penguinQuacks[UnityEngine.Random.Range(0, _penguinQuacks.Length)];
         if(!_audioSource.isPlaying) 

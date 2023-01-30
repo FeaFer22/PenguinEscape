@@ -102,7 +102,7 @@ public class PlayerInputManager : MonoBehaviour
         if (quack_input)
         {
             quack_input = false;
-            soundController.PenguinQuack();
+            soundController.Quack();
         }
     }
 }

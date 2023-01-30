@@ -5,9 +5,7 @@ public class PlayerMovementController : MonoBehaviour
     PlayerManager playerManager;
     PlayerInputManager inputManager;
     // PlayerAnimationManager animationManager;
-
     Vector3 moveDirection;
-    // Transform cameraObject;
 
     private Rigidbody playerRigidbody;
 
@@ -37,7 +35,6 @@ public class PlayerMovementController : MonoBehaviour
         //animationManager = GetComponent<PlayerAnimationManager>();
         inputManager = GetComponent<PlayerInputManager>();  
         playerRigidbody = GetComponent<Rigidbody>();
-        //cameraObject = Camera.main.transform;
     }
 
     public void HandleAllMovement()
@@ -53,8 +50,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private void HandleMovement()
     {
-        moveDirection = /*cameraObject.forward*/ transform.forward * inputManager.verticalInput;
-        moveDirection = moveDirection + /*cameraObject.right*/ transform.right * inputManager.horizontalInput;
+        moveDirection = transform.forward * inputManager.verticalInput;
+        moveDirection = moveDirection + transform.right * inputManager.horizontalInput;
         moveDirection = Quaternion.Euler(0,45f,0) * moveDirection;
         moveDirection.Normalize();
         moveDirection.y = 0;
