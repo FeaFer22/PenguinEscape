@@ -1,34 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerInputManager : MonoBehaviour
 {
     PlayerInput playerInput;
     PlayerMovementController movementController;
-    //PlayerAnimationManager playerAnimationManager;
     PlayerSoundController soundController;
 
 
     public Vector2 movementInput;
-    // public Vector2 cameraInput;
-
-    // public float cameraInputX;
-    // public float cameraInputY;
-
-    //public float moveAmount;
     public float verticalInput;
     public float horizontalInput;
 
     public bool sprint_input;
-    // public bool jump_input;
 
     public bool quack_input;
 
     private void Awake()
     {
-        // playerAnimationManager = GetComponent<PlayerAnimationManager>();
         movementController = GetComponent<PlayerMovementController>();
         soundController = GetComponent<PlayerSoundController>();
     }
@@ -43,8 +31,6 @@ public class PlayerInputManager : MonoBehaviour
 
             playerInput.PlayerActions.Sprint.performed += i => sprint_input = true;
             playerInput.PlayerActions.Sprint.canceled += i => sprint_input = false;
-
-            // playerInput.PlayerActions.Jump.performed += i => jump_input = true;
 
             playerInput.PlayerActions.Quack.performed += i => quack_input = true;
         }
@@ -61,7 +47,6 @@ public class PlayerInputManager : MonoBehaviour
     {
         HandleMovementInput();
         HandleSprintingInput();
-        // HandleJumpingInput();
         HandleQuackingInput();
     }
 
@@ -69,17 +54,11 @@ public class PlayerInputManager : MonoBehaviour
     {
         verticalInput = movementInput.y;
         horizontalInput = movementInput.x;
-
-        // cameraInputY = cameraInput.y;
-        // cameraInputX = cameraInput.x;
-
-        //moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        //playerAnimationManager.UpdateAnimatorValues(0, moveAmount, playerMovementController.isSprinting);
     }
 
     private void HandleSprintingInput()
     {
-        if (sprint_input /*&& moveAmount > 0.5f*/)
+        if (sprint_input)
         {
             movementController.isSprinting = true;
         }
@@ -88,15 +67,6 @@ public class PlayerInputManager : MonoBehaviour
             movementController.isSprinting = false;
         }
     }
-
-    // private void HandleJumpingInput()
-    // {
-    //     if (jump_input)
-    //     {
-    //         jump_input = false;
-    //         playerMovementController.HandleJumping();
-    //     }
-    // }
     private void HandleQuackingInput()
     {
         if (quack_input)
